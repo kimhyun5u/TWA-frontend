@@ -1,38 +1,363 @@
-.App {
-  text-align: center;
+/* App.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, 
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  word-wrap: break-word;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-weight: 500;
+  color: #333;
+}
+
+.input-section {
+  margin-bottom: 2rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+}
+
+.button-group {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 1rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submit-button {
+  background-color: #007bff;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.submit-button:hover:not(:disabled) {
+  background-color: #0069d9;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.refresh-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+.new-chat-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.new-chat-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.response-section {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  word-wrap: break-word;
+}
+
+.response-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+  /* overflow-x: auto; */
+  word-wrap: break-word;
+
+  /* 너비에 맞춰 줄바꿈 되도록 */
+  white-space: pre-wrap;
+}
+
+.response-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.response-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.role-badge {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.thinking-badge, .final-answer-badge {
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: #e2f2ff;
+  color: #0066cc;
+}
+
+.final-answer-badge {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.cot-container {
+  padding: 10px;
+  background-color: #fff;
+  border-left: 3px solid #0066cc;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-content {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.markdown-content pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.markdown-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.markdown-content table {
+  border-collapse: collapse;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+.markdown-content code {
+  font-family: monospace;
+  background-color: #f5f5f5;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.user-query {
+  font-weight: 500;
+}
+
+.response-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-button {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #e0e0e0;
+}
+
+.user-id-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.user-id-field {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.history-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.history-button:hover {
+  background-color: #0069d9;
+}
+
+.history-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.history-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.history-item {
+  padding: 15px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.history-item-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.history-timestamp {
+  font-size: 12px;
+  color: #666;
+}
+
+.history-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-query {
+  font-weight: 500;
+}
+
+.history-response {
+  border-left: 3px solid #0066cc;
+  padding-left: 10px;
+}
+
+/* Toggleable content styles */
+.toggleable-item {
+  margin-bottom: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toggle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+}
+
+.toggleable-item:hover .toggle-header {
+  background-color: #f0f0f0;
+}
+
+.toggle-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.toggle-button:hover {
+  background-color: #e0e0e0;
+}
+
+.toggle-content {
+  padding: 15px;
+  background-color: #ffffff;
+}
+
+.thinking-item .toggle-header {
+  background-color: #e8f4ff;
+}
+
+.thinking-item:hover .toggle-header {
+  background-color: #d8ecff;
+}
+
+/* Keep the final response styling */
+.final-response {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
 }
