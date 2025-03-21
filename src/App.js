@@ -41,14 +41,11 @@ const ToggleableContent = ({ title, content, isThinking = false, role, responseT
 
 const App = () => {
   const [inputText, setInputText] = useState('');
-  const [userId, setUserId] = useState('');
   const [responseData, setResponseData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [eventSource, setEventSource] = useState(null);
-  const [messages, setMessages] = useState([]);
 
-  const [requestStartTime, setRequestStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [responseTimes, setResponseTimes] = useState({});
   const intervalRef = useRef(null);
@@ -57,7 +54,6 @@ const App = () => {
   useEffect(() => {
     if (isLoading) {
       const startTime = Date.now();
-      setRequestStartTime(startTime);
       
       // Set up an interval to update elapsed time every second
       intervalRef.current = setInterval(() => {
@@ -87,7 +83,7 @@ const App = () => {
     const messageTimes = {};
     let startTime = Date.now();
     
-    const source = new EventSource(`${API_BASE_URL}/prompt?messages=${encodeURIComponent(inputText)}&user_id=${encodeURIComponent(userId)}`);
+    const source = new EventSource(`${API_BASE_URL}/prompt?messages=${encodeURIComponent(inputText)}&user_id=${encodeURIComponent("")}`);
     source.onmessage = (event) => {
       let d = JSON.parse(event.data);
       d["role"] = d["role"] === null ? "user" : d["role"];
@@ -132,17 +128,12 @@ const App = () => {
     setInputText(e.target.value);
   };
 
-  const handleUserIdChange = (e) => {
-    setUserId(e.target.value);
-  };
-
   const handleSubmit = async () => {
     if (!inputText.trim()) return;
     
     setIsLoading(true);
     setResponseTimes({});
     setElapsedTime(0);
-    setRequestStartTime(Date.now());
     
     try {
       setResponseData([]);
@@ -157,21 +148,6 @@ const App = () => {
     setIsLoading(true);
     try {
       await fetch(`${API_BASE_URL}/refresh-menu`,
-        {
-          method: 'POST'
-        }
-      );
-    } catch (error) {
-      console.error('Error refreshing data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleNewChat = async () => {
-    setIsLoading(true);
-    try {
-      await fetch(`${API_BASE_URL}/new-chat?user_id=${encodeURIComponent(userId)}`,
         {
           method: 'POST'
         }
@@ -201,15 +177,6 @@ const App = () => {
       
       <main>
         <div className="input-section">
-          {/* <div className="user-id-input">
-            <input
-              type="text"
-              value={userId}
-              onChange={handleUserIdChange}
-              placeholder="사용자 ID를 입력하세요"
-              className="user-id-field"
-            />
-          </div> */}
           
           <textarea
             ref={textAreaRef}
@@ -223,7 +190,6 @@ const App = () => {
           <div className="button-group">
             <button 
               onClick={() => {
-                setRequestStartTime(Date.now());
                 handleSubmit();
               }}
               disabled={isLoading || !inputText.trim()}
